@@ -102,6 +102,7 @@ inline fun printOut(out: PrintStream, c: Class<*>) {
         val relevantGetters = c.methods
                 .filter { it.parameterCount == 0 && it.returnType != Void.TYPE && it.modifiers and Modifier.STATIC == 0 }
                 .filter { it.name !in arrayOf("toString", "hashCode", "getClass", "ordinal", "getDeclaringClass") }
+            .filter { c != UpgradeType::class.java || it.name !in arrayOf("mineralPrice", "gasPrice", "whatsRequired", "upgradeTime")}
                 .toList()
         val namedGetters = relevantGetters.map {
             it.name.toSnakeCase() to it
